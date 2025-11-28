@@ -24,6 +24,21 @@ coverage.xml
 *.log
 .pytest_cache/
 
+
 # OS
 .DS_Store
 Thumbs.db
+
+# Project
+output/
+*.pdf
+*.spec
+build/
+dist/
+.vscode/
+.idea/
+*.json
+!app/config/settings.json
+!app/templates/**/*.json
+!tests/test_results.json
+

@@ -1,0 +1,95 @@
+MASTER BLUEPRINT: SudokuMaster Gen (Final Edition)
+- Dropdown เลือก ระดับความยาก
+- Input Box ระบุ จำนวนตารางที่ต้องการ (Quantity)
+- Slider ปรับ Performance (Workers)
+
+1.2 Non-Functional Requirements (ข้อกำหนดเชิงเทคนิค)
+- Hardware: รันบน Laptop RAM 4-8GB ได้อย่างเสถียร
+- Architecture: MVVM (Model-View-ViewModel)
+- Stability: โจทย์ทุกข้อต้องมี Unique Solution (คำตอบเดียว) เท่านั้น
+
+2. System Architecture (สถาปัตยกรรมระบบ)
+- ใช้สถาปัตยกรรม "MVVM Orchestrated Pipeline" แบบเดิม แต่เพิ่มกลยุทธ์การจัดการเฉลย (Solution Buffering)
+
+2.1 High-Level DiagramCode snippetgraph TD
+    User -->|Input: Size, Type, Qty| View[UI Layer]
+    View <--> VM[ViewModel]
+    VM --> Orch[Orchestrator]
+    
+    subgraph "Production Line (Parallel)"
+        Orch --> JobQ[(Job Queue)]
+        JobQ --> W1[Worker] & W2[Worker] & W3[Worker]
+        W1 & W2 & W3 -.-> Cache[Geometry Cache]
+        W1 & W2 & W3 -->|Result: Puzzle + Solution| ResQ[(Result Queue)]
+    end
+    
+    subgraph "Assembly Line (Single Thread)"
+        ResQ --> Writer[PDF Assembler]
+        Writer -- 1. Write Puzzles --> PDF[PDF Stream]
+│   │   ├── views/
+│   │       ├── main_window.py  # UI: Size, Type, Diff, Qty Inputs
+│   │   ├── viewmodels/
+│   │       ├── generator_vm.py
+│   │
+│   ├── models/                 # [Models]
+│   │   ├── grid.py
+│   │   ├── puzzle_config.py
+│   │
+│   ├── core/                   # [Logic]
+│   │   ├── generator.py
+│   │   ├── solver.py
+│   │   ├── geometry.py         # Jigsaw Cache
+│   │   └── strategies/         # Rules (Diagonal, etc.)
+│   │
+MASTER BLUEPRINT: SudokuMaster Gen (Final Edition)
+- Dropdown เลือก ระดับความยาก
+- Input Box ระบุ จำนวนตารางที่ต้องการ (Quantity)
+- Slider ปรับ Performance (Workers)
+
+1.2 Non-Functional Requirements (ข้อกำหนดเชิงเทคนิค)
+- Hardware: รันบน Laptop RAM 4-8GB ได้อย่างเสถียร
+- Architecture: MVVM (Model-View-ViewModel)
+- Stability: โจทย์ทุกข้อต้องมี Unique Solution (คำตอบเดียว) เท่านั้น
+
+2. System Architecture (สถาปัตยกรรมระบบ)
+- ใช้สถาปัตยกรรม "MVVM Orchestrated Pipeline" แบบเดิม แต่เพิ่มกลยุทธ์การจัดการเฉลย (Solution Buffering)
+
+2.1 High-Level DiagramCode snippetgraph TD
+    User -->|Input: Size, Type, Qty| View[UI Layer]
+    View <--> VM[ViewModel]
+    VM --> Orch[Orchestrator]
+    
+    subgraph "Production Line (Parallel)"
+        Orch --> JobQ[(Job Queue)]
+        JobQ --> W1[Worker] & W2[Worker] & W3[Worker]
+        W1 & W2 & W3 -.-> Cache[Geometry Cache]
+        W1 & W2 & W3 -->|Result: Puzzle + Solution| ResQ[(Result Queue)]
+    end
+    
+    subgraph "Assembly Line (Single Thread)"
+        ResQ --> Writer[PDF Assembler]
+        Writer -- 1. Write Puzzles --> PDF[PDF Stream]
+│   │   ├── views/
+│   │       ├── main_window.py  # UI: Size, Type, Diff, Qty Inputs
+│   │   ├── viewmodels/
+│   │       ├── generator_vm.py
+│   │
+│   ├── models/                 # [Models]
+│   │   ├── grid.py
+│   │   ├── puzzle_config.py
+│   │
+│   ├── core/                   # [Logic]
+│   │   ├── generator.py
+│   │   ├── solver.py
+│   │   ├── geometry.py         # Jigsaw Cache
+│   │   └── strategies/         # Rules (Diagonal, etc.)
+│   │
+│   └── services/               # [Services]
+│       ├── orchestrator.py
+│       ├── pdf_writer.py       # *Logic แยกโจทย์/เฉลย อยู่ที่นี่*
+│       └── ...
+│
+└── assets/                     # Fonts (Sarabun/Thai Font)
+6. Development Phases (ลำดับการพัฒนา)Phase 1: Core Logic & Solverสร้าง13. 9x9 Asterisk Sudoku
+14. 9x9 Consecutive Sudoku
+15. 9x9 Thai Alphabet SudokuGrid ที่รองรับ size Nเขียน Algorithm สร้าง Jigsaw และ Cachingเขียน Solver ที่แก้โจทย์ทุกประเภทได้Phase 2: PDF Engine (Crucial for Layout)เขียน PDFWriter ให้รองรับการวาดตารางImplement: ระบบ Buffer เฉลย เพื่อเขียนต่อท้ายเล่มImplement: ระบบแปลงตัวเลขเป็น ก-ฮPhase 3: Parallel Pipelineเชื่อมต่อ Orchestrator และ Queueจูน Memory ManagementPhase 4: UI (MVVM)สร้างหน้าจอตาม Requirement (Dropdown เลือกขนาด/ชนิด/ความยาก)เชื่อมต่อกับ Backendนี่คือ Blueprint ที่สมบูรณ์และรองรับทุกความต้องการของคุณครับขั้นตอนต่อไป: ผมพร้อมเริ่ม Phase 1 (เขียน Core Logic ของ SudokuGrid และ Solver) ทันทีครับ!

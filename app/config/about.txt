@@ -1,0 +1,14 @@
+Sudoku Generator Pro
+Version: 1.0.0
+
+Developed by: [MASTERIII/MT Team]
+
+This application generates high-quality Sudoku puzzles including various variants like Jigsaw, Diagonal, and Windoku.
+
+Features:
+- 15+ Sudoku Variants
+- PDF Generation with Solutions
+- Customizable Difficulty
+- Theme Support
+
+© 2023 All Rights Reserved.

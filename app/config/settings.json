@@ -1,0 +1,46 @@
+{
+    "app_settings": {
+        "theme": "System",
+        "default_output_path": "./output",
+        "auto_save": true
+    },
+    "visual_settings": {
+        "gray_color": "#c5c5c5",
+        "gray_margin": 3
+    },
+    "font_settings": {
+        "thai_font": "TH Mali Grade6 Bold.ttf",
+        "english_font": "TH Mali Grade6 Bold.ttf"
+    },
+    "defaults": {
+        "empty_ratio_min": 0.45,
+        "empty_ratio_max": 0.55
+    },
+    "difficulty_presets": {
+        "easy": {
+            "empty_ratio_min": 0.45,
+            "empty_ratio_max": 0.5,
+            "description": "Beginner friendly, many clues."
+        },
+        "medium": {
+            "empty_ratio_min": 0.51,
+            "empty_ratio_max": 0.58,
+            "description": "Standard difficulty."
+        },
+        "hard": {
+            "empty_ratio_min": 0.59,
+            "empty_ratio_max": 0.65,
+            "description": "Requires advanced techniques."
+        },
+        "expert": {
+            "empty_ratio_min": 0.66,
+            "empty_ratio_max": 0.72,
+            "description": "For masters only."
+        },
+        "devil": {
+            "empty_ratio_min": 0.73,
+            "empty_ratio_max": 0.8,
+            "description": "Extremely difficult."
+        }
+    }
+}

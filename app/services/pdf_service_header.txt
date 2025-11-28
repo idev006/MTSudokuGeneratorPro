@@ -1,0 +1,32 @@
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from typing import List
+import os
+from app.models.grid import SudokuGrid
+
+class PDFService:
+    """
+    Service for generating PDF files from Sudoku grids.
+    """
+    THAI_DIGITS = ['ก', 'ข', 'ค', 'ง', 'จ', 'ฉ', 'ช', 'ซ', 'ฌ']
+    HEX_DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+
+    def __init__(self):
+        # Register Thai font if available
+        try:
+            font_path = os.path.join(os.path.dirname(__file__), '..', 'assets', 'fonts', 'THSarabun.ttf')
+            if os.path.exists(font_path):
+                pdfmetrics.registerFont(TTFont('THSarabun', font_path))
+                self.thai_font = 'THSarabun'
+            else:
+                self.thai_font = 'Helvetica'  # Fallback
+        except Exception:
+            self.thai_font = 'Helvetica'
+
+    def create_pdf(self, puzzles: List[SudokuGrid], filename: str):
+        """
+        Creates a PDF containing the given puzzles and their solutions.
+        """
